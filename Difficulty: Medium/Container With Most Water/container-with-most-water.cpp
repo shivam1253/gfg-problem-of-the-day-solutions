@@ -9,17 +9,16 @@ class Solution {
 
   public:
     int maxWater(vector<int> &height) {
-        // code here
         int n=height.size();
-        int r=0;
-        int l=n-1;
+        int l=0;
+        int r=n-1;
         int ans=0;
-        while(r<l){
-            ans=max(ans,(l-r)*min(height[l],height[r]));
-            if(height[l]>height[r]){
-                r++;
+        while(l<r){
+            ans=max(ans,(r-l)*min(height[l],height[r]));
+            if(height[l]<height[r]){
+                l++;
             }
-            else l--;
+            else r--;
         }
         return ans;
     }
