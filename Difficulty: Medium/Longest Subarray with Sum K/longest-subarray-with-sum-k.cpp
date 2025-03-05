@@ -7,24 +7,28 @@ using namespace std;
 
 class Solution {
   public:
-    int longestSubarray(vector<int>&arr, int k) {
-         int n = arr.size();
-        int curr_sum = 0, req_prefix_sum;
-        int max_subarr_len = 0;
-        unordered_map<int, int> prefix_sum;
-        
-        prefix_sum[0] = -1;
-        for(int i=0; i<n; i++) {
-            curr_sum += arr[i];
-            if(prefix_sum.find(curr_sum - k) != prefix_sum.end()) {
-                max_subarr_len = max(max_subarr_len, i - prefix_sum[curr_sum - k]);    
-            } 
-            
-            if(prefix_sum.find(curr_sum)==prefix_sum.end()) {
-                prefix_sum[curr_sum] = i;                
-            } 
+    int longestSubarray(vector<int>& nums, int k) {
+        // code here
+        map<int,int>mpp;
+        int n=nums.size();
+        int sum=0;
+        int ans=0;
+        mpp[0]=-1;
+        for(int i=0; i<n; i++){
+            sum+=nums[i];
+            int target=sum-k;
+             if(sum==k){
+                ans=max(ans,i+1);
+             }
+            if(mpp.find(target)!=mpp.end()){
+                ans=max(ans,i-mpp[target]);
+            }
+             if(mpp.find(sum)==mpp.end()){
+                mpp[sum]=i;
+            }
+           
         }
-        return max_subarr_len;
+        return ans;
     }
 };
 
